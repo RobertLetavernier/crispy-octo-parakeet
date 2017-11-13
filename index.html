@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+    <head>
+	<!-- -- >
+        <title>Tuto Boostrap</title>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- -->
+		<script src="dom-to-js.js"></script>
+		<script src="magiccard.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="magiccard.css">
+    </head>
+	
+	<body>
+
+
+        <nav>
+            <select id="playerSelect" class="playerSelect">
+                <optgroup label="players">
+                    <option>Alice</option>
+                    <option>Bob</option>
+                    <option>Charlie</option>
+                </optgroup>
+                <optgroup label="action">
+                    <option>Niou</option>
+                </optgroup>
+            </select>
+        </nav>
+        <section id="playerAlice" class="player Alice">
+            <section id="playerAlice_sect1" class="zone board">
+                <div class="sectTitle">
+                    <span>BOARD</span>
+                    <a class="">Q/T</a>
+                    <a class="">H/C</a>
+                    <a class="">D/U</a>
+                    <a class="">+</a>
+                </div>
+            </section>
+        </section>
+        
+        
+<script>
+	jsonCardData = [{
+		section : 'board',
+		cards : [{
+			pic : 'http://magiccards.info/scans/en/po2/63.jpg',
+			tap : false
+		},{
+			pic : 'http://magiccards.info/scans/en/po2/79.jpg',
+			tap : false
+		},{
+			pic : 'http://magiccards.info/scans/en/po2/72.jpg',
+			tap : false
+		}]
+	}, {
+		section : 'libr',
+		cards : [
+        {pic : 'http://magiccards.info/scans/en/po2/60.jpg', tap : false },
+        {pic : 'http://magiccards.info/scans/en/po2/75.jpg', tap : false },
+        {pic : 'http://magiccards.info/scans/en/po2/76.jpg', tap : false },
+        {pic : 'http://magiccards.info/scans/en/po2/77.jpg', tap : false },
+        {pic : 'http://magiccards.info/scans/en/po2/78.jpg', tap : false },
+        {pic : 'http://magiccards.info/scans/en/po2/79.jpg', tap : false }
+        ]
+	}, {
+		section : 'grave',
+		cards : [
+        {pic : 'http://magiccards.info/scans/en/po2/80.jpg', tap : false },
+        {pic : 'http://magiccards.info/scans/en/po2/99.jpg', tap : false }
+        ]
+	}];
+	
+var card = null;
+var cardHtml = '';
+var IdIncr = 0;
+for (k=0; k<jsonCardData.length; k++) { 
+	document.write('<section id="sect' + jsonCardData[k].section + '" class=" cardZone sect' + jsonCardData[k].section + '">');
+	document.write('<div class="sectTitle">' + jsonCardData[k].section + '</div>');
+    
+		cardHtml = '<div id="c'+(++IdIncr)+'" class="cardBlock" ondrop="dropAfter(event)" ondragover="allowDrop(event)">';
+		cardHtml += '</div>';
+		
+		document.write(cardHtml);
+        
+	for (j=0; j<jsonCardData[k].cards.length; j++) { 
+		card = jsonCardData[k].cards[j];
+		cardHtml = '<div id="c'+(++IdIncr)+'" class="cardBlock" ondrop="dropAfter(event)" ondragover="allowDrop(event)" ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true">';
+		cardHtml += '<img class="cardPic';
+		cardHtml += card.tap ? ' tapped"' : '"';
+		cardHtml += ' src="' + card.pic + '" />';
+		cardHtml += '<a class="tBtn" onclick="javascript:tCard(this.parentElement);">T:</a>';
+		cardHtml += '<a class="qBtn" onclick="javascript:qCard(this.parentElement);">Q:</a>';
+		cardHtml += '</div>';
+		
+		document.write(cardHtml);
+	}
+	document.write('</section>');
+}
+</script>
+
+	</body>
+	<footer>
+	</footer>
+</html>
